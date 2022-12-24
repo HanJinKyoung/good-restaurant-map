@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.goodrestaurant.map.dao.ReviewDAO;
 import com.goodrestaurant.map.dto.ReviewDTO;
 
-@RestController
+@RestController	//RESTFull 방식 > 데이터를 전달하는 방식을 취함
 @RequestMapping("/api/review")
 public class ReviewCtrl {
     @Autowired
@@ -25,9 +26,11 @@ public class ReviewCtrl {
     public void saveReview(@RequestBody ReviewDTO reviewDTO) {
         String id = reviewDTO.getId();
         if (id == null) {
+        	// insert
         	String uuidStr = UUID.randomUUID().toString();
         	reviewDTO.setId(uuidStr);
         }
+        // on duplicate key update (key가 있을경우 update)
         reviewDAO.saveReview(reviewDTO);
     }
     

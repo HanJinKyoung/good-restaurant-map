@@ -2,16 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.goodrestaurant.map.dao.ReviewDAO">
     <insert id="saveReview">
-        insert into tbl_review (id, title, address, review, grade, lon, lat)
-        values (#{id}, #{title}, #{address}, #{review}, #{grade}, #{lon}, #{lat})
+        insert into tbl_review (id, title, address, review, grade)
+        values (#{id}, #{title}, #{address}, #{review}, #{grade})
         on duplicate key
         update
             title = #{title},
             address = #{address},
             review = #{review},
-            grade = #{grade},
-            lon = #{lon},
-            lat = #{lat}
+            grade = #{grade}
     </insert>
     
     <select id="getReviews" resultType="hashMap">
